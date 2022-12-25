@@ -12,6 +12,8 @@
   "bulletWidth": 3,
   "bulletHeight": 3,
   "bulletSpeedFactor": 2,
+  "maxBulletNum": 10,
+  "bulletInterval": 50,
   "bulletColor": {
     "r": 80,
     "g": 80,

@@ -3,10 +3,12 @@ package main
 import (
 	"alienGame/entity"
 	"github.com/hajimehoshi/ebiten/v2"
+	"time"
 )
 
 type Input struct {
-	msg string // 用于调试
+	msg            string    // 用于调试
+	lastBulletTime time.Time //上一次发射子弹的时间
 }
 
 func (i *Input) Update(game *Game) {
@@ -25,8 +27,13 @@ func (i *Input) Update(game *Game) {
 
 	// 空格发射子弹
 	if ebiten.IsKeyPressed(ebiten.KeySpace) {
-		bullet := entity.NewBullet(game.cfg, game.ship)
-		game.addBullet(bullet)
-		i.msg = "space pressed"
+		//限制同时存在的子弹，以及子弹发射的间隔
+		if len(game.bullets) < game.cfg.MaxBulletNum &&
+			time.Now().Sub(i.lastBulletTime).Milliseconds() > game.cfg.BulletInterval {
+			bullet := entity.NewBullet(game.cfg, game.ship)
+			game.addBullet(bullet)
+			i.lastBulletTime = time.Now()
+			i.msg = "space pressed"
+		}
 	}
 }

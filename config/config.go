@@ -17,6 +17,8 @@ type Config struct {
 	BulletHeight      int        `json:"BulletHeight"`      //子弹的高度
 	BulletSpeedFactor float64    `json:"BulletSpeedFactor"` //子弹的速度
 	BulletColor       color.RGBA `json:"BulletColor"`       //子弹的颜色
+	MaxBulletNum      int        `json:"MaxBulletNum"`      //同时存在的最大子弹数
+	BulletInterval    int64      `json:"BulletInterval"`    //子弹发射间隔(时间戳)
 }
 
 func LoadConfig() *Config {

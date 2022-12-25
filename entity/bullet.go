@@ -40,3 +40,8 @@ func (bullet *Bullet) Draw(screen *ebiten.Image) {
 	op.GeoM.Translate(bullet.X, bullet.Y)
 	screen.DrawImage(bullet.image, op)
 }
+
+// 判断子弹是否处于屏幕之外
+func (bullet *Bullet) OutOfScreen() bool {
+	return bullet.Y < -float64(bullet.height)
+}

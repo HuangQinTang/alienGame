@@ -39,8 +39,15 @@ func (g *Game) Update() error {
 	// 根据键盘操作更新飞船坐标
 	g.input.Update(g)
 
+	// 移动子弹
 	for bullet := range g.bullets {
 		bullet.Y -= bullet.SpeedFactor
+	}
+	// 清除超出屏幕的子弹
+	for bullet := range g.bullets {
+		if bullet.OutOfScreen() {
+			delete(g.bullets, bullet)
+		}
 	}
 	return nil
 }
