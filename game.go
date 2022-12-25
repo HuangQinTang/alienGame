@@ -8,9 +8,10 @@ import (
 )
 
 type Game struct {
-	input *Input
-	cfg   *config.Config
-	ship  *entity.Ship
+	input   *Input
+	cfg     *config.Config
+	ship    *entity.Ship                //飞船
+	bullets map[*entity.Bullet]struct{} //子弹
 }
 
 func NewGame() *Game {
@@ -22,18 +23,11 @@ func NewGame() *Game {
 	cfg.ScreenWidth = cfg.ScreenWidth / config.LayoutMultiple
 	cfg.ScreenHeight = cfg.ScreenHeight / config.LayoutMultiple
 
-	ship := entity.NewShip(cfg.ScreenWidth, cfg.ScreenHeight)
-	//飞船起始x轴坐标
-	orignX := (float64(cfg.ScreenWidth) - ship.X) / 2
-	//飞船可以往左移动最大X轴
-	lMoveLimit := orignX*2 + ship.X
-	//飞船可以往右移动的最大x轴
-	rMoveLimit := -orignX - ship.X
-
 	return &Game{
-		input: &Input{msg: "Ready to play", LMoveLimit: lMoveLimit, RMoveLimit: rMoveLimit},
-		ship:  ship,
-		cfg:   cfg,
+		input:   &Input{msg: "Ready to play"},
+		ship:    entity.NewShip(cfg.ScreenWidth, cfg.ScreenHeight),
+		cfg:     cfg,
+		bullets: make(map[*entity.Bullet]struct{}),
 	}
 }
 
@@ -42,7 +36,12 @@ func NewGame() *Game {
 // 来更新游戏的逻辑状态，例如子弹位置更新。注意到Update方法的返回值为error 类型，当 Update
 // 方法返回一个非空的error值时，游戏停止。在上面的例子中，我们一直返回nil，故只有关闭窗口时游戏才停止。
 func (g *Game) Update() error {
-	g.input.Update(g.ship, g.cfg)
+	// 根据键盘操作更新飞船坐标
+	g.input.Update(g)
+
+	for bullet := range g.bullets {
+		bullet.Y -= bullet.SpeedFactor
+	}
 	return nil
 }
 
@@ -52,8 +51,16 @@ func (g *Game) Update() error {
 // 我们调用ebitenutil.DebugPrint函数在screen上渲染一条调试信息。
 // 由于调用Draw方法前，screen会被重置，故DebugPrint每次都需要调用。
 func (g *Game) Draw(screen *ebiten.Image) {
+	//填充背景色
 	screen.Fill(g.cfg.BgColor)
+
+	// 绘制飞船
 	g.ship.Draw(screen, g.cfg)
+
+	// 绘制子弹
+	for bullet := range g.bullets {
+		bullet.Draw(screen)
+	}
 	ebitenutil.DebugPrint(screen, g.input.msg)
 }
 
@@ -63,4 +70,9 @@ func (g *Game) Draw(screen *ebiten.Image) {
 // Layout返回的逻辑大小为(320, 240)，所以显示会放大1倍。
 func (g *Game) Layout(outsideWidth, outsideHeight int) (screenWidth, screenHeight int) {
 	return g.cfg.ScreenWidth, g.cfg.ScreenHeight
+}
+
+// addBullet 发射子弹
+func (g *Game) addBullet(bullet *entity.Bullet) {
+	g.bullets[bullet] = struct{}{}
 }

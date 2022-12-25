@@ -11,9 +11,9 @@ type Bullet struct {
 	image       *ebiten.Image
 	width       int
 	height      int
-	x           float64
-	y           float64
-	speedFactor float64
+	X           float64
+	Y           float64
+	SpeedFactor float64 //子弹速度
 }
 
 func NewBullet(cfg *config.Config, ship *Ship) *Bullet {
@@ -28,15 +28,15 @@ func NewBullet(cfg *config.Config, ship *Ship) *Bullet {
 		image:       img,
 		width:       cfg.BulletWidth,
 		height:      cfg.BulletHeight,
-		x:           ship.X + float64(ship.Width-cfg.BulletWidth)/2,
-		y:           float64(cfg.ScreenHeight - ship.Height - cfg.BulletHeight),
-		speedFactor: cfg.BulletSpeedFactor,
+		X:           ship.X + float64(ship.Width-cfg.BulletWidth)/2,
+		Y:           float64(cfg.ScreenHeight - ship.Height - cfg.BulletHeight),
+		SpeedFactor: cfg.BulletSpeedFactor,
 	}
 }
 
 // Draw 绘制子弹
 func (bullet *Bullet) Draw(screen *ebiten.Image) {
 	op := &ebiten.DrawImageOptions{}
-	op.GeoM.Translate(bullet.x, bullet.y)
+	op.GeoM.Translate(bullet.X, bullet.Y)
 	screen.DrawImage(bullet.image, op)
 }

@@ -10,7 +10,7 @@
   },
   "shipSpeedFactor": 3,
   "bulletWidth": 3,
-  "bulletHeight": 15,
+  "bulletHeight": 3,
   "bulletSpeedFactor": 2,
   "bulletColor": {
     "r": 80,
