@@ -11,6 +11,7 @@ import (
 	"golang.org/x/image/font/opentype"
 	"image/color"
 	"log"
+	"strconv"
 	"time"
 )
 
@@ -212,7 +213,9 @@ func (g *Game) Draw(screen *ebiten.Image) {
 			alien.Draw(screen)
 		}
 		//打印操作，方便调试
-		ebitenutil.DebugPrint(screen, "")
+		ebitenutil.DebugPrint(screen,
+			"operation: "+g.input.msg+", "+"score: "+strconv.Itoa(g.successCount)+", "+"fall: "+strconv.Itoa(g.failCount),
+		)
 
 	// 游戏结束
 	case config.ModeOver:
