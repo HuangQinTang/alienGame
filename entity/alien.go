@@ -2,6 +2,8 @@ package entity
 
 import (
 	"alienGame/config"
+	"alienGame/resources"
+	"bytes"
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
 	"log"
@@ -17,7 +19,8 @@ type Alien struct {
 }
 
 func NewAlien(cfg *config.Config) *Alien {
-	img, _, err := ebitenutil.NewImageFromFile("./images/alien.bmp")
+	//img, _, err := ebitenutil.NewImageFromFile("./images/alien.bmp")
+	img, _, err := ebitenutil.NewImageFromReader(bytes.NewReader(resources.AlienBmp))
 	if err != nil {
 		log.Fatal(err)
 	}

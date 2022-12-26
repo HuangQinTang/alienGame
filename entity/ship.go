@@ -1,6 +1,8 @@
 package entity
 
 import (
+	"alienGame/resources"
+	"bytes"
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
 	_ "golang.org/x/image/bmp"
@@ -17,7 +19,8 @@ type Ship struct {
 }
 
 func NewShip(screenWidth, screenHeight int) *Ship {
-	img, _, err := ebitenutil.NewImageFromFile("./images/ship.bmp")
+	//img, _, err := ebitenutil.NewImageFromFile("./images/ship.bmp")
+	img, _, err := ebitenutil.NewImageFromReader(bytes.NewReader(resources.ShipBmp))
 	if err != nil {
 		log.Fatal(err)
 	}

@@ -1,10 +1,11 @@
 package config
 
 import (
+	"alienGame/resources"
+	"bytes"
 	"encoding/json"
 	"image/color"
 	"log"
-	"os"
 )
 
 type Config struct {
@@ -29,14 +30,22 @@ type Config struct {
 }
 
 func LoadConfig() *Config {
-	f, err := os.Open("./config/config.json")
-	if err != nil {
-		log.Fatalf("os.Open failed: %v\n", err)
-	}
-	defer f.Close()
+	// 读取文件方式获取配置
+	//f, err := os.Open("./config/config.json")
+	//if err != nil {
+	//	log.Fatalf("os.Open failed: %v\n", err)
+	//}
+	//defer f.Close()
 
+	//var cfg Config
+	//err = json.NewDecoder(f).Decode(&cfg)
+	//if err != nil {
+	//	log.Fatalf("json.Decode failed: %v\n", err)
+	//}
+
+	// 将config.json打包成成二进制文件引入
 	var cfg Config
-	err = json.NewDecoder(f).Decode(&cfg)
+	err := json.NewDecoder(bytes.NewReader(resources.Config)).Decode(&cfg)
 	if err != nil {
 		log.Fatalf("json.Decode failed: %v\n", err)
 	}
