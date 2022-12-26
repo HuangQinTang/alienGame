@@ -3,7 +3,6 @@ package main
 import (
 	"alienGame/config"
 	"alienGame/entity"
-	"fmt"
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
 	"github.com/hajimehoshi/ebiten/v2/examples/resources/fonts"
@@ -213,7 +212,7 @@ func (g *Game) Draw(screen *ebiten.Image) {
 			alien.Draw(screen)
 		}
 		//打印操作，方便调试
-		ebitenutil.DebugPrint(screen, fmt.Sprintf("operation: %s, score: %s, fail: %s", g.input.msg, g.successCount, g.failCount))
+		ebitenutil.DebugPrint(screen, "")
 
 	// 游戏结束
 	case config.ModeOver:
