@@ -37,3 +37,10 @@ func (i *Input) Update(game *Game) {
 		}
 	}
 }
+
+func (i *Input) IsKeyPressed() bool {
+	if ebiten.IsKeyPressed(ebiten.KeySpace) || ebiten.IsMouseButtonPressed(ebiten.MouseButtonLeft) {
+		return true
+	}
+	return false
+}

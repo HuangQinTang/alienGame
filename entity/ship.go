@@ -1,7 +1,6 @@
 package entity
 
 import (
-	"alienGame/config"
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
 	_ "golang.org/x/image/bmp"
@@ -37,8 +36,7 @@ func NewShip(screenWidth, screenHeight int) *Ship {
 	return ship
 }
 
-// Draw 绘制自身
-func (ship *Ship) Draw(screen *ebiten.Image, cfg *config.Config) {
+func (ship *Ship) Draw(screen *ebiten.Image) {
 	op := &ebiten.DrawImageOptions{}
 	//fmt.Println("cfg.ScreenWidth", cfg.ScreenWidth, ship.Width)
 	//fmt.Println("cfg.ScreenHeight", cfg.ScreenHeight, ship.Height)
@@ -48,4 +46,8 @@ func (ship *Ship) Draw(screen *ebiten.Image, cfg *config.Config) {
 
 	// 指定飞船坐标相对于原点的偏移
 	screen.DrawImage(ship.Image, op)
+}
+
+func (ship *Ship) GetInfo() (Width, Height int, X, Y float64) {
+	return ship.Width, ship.Height, ship.X, ship.Y
 }

@@ -18,7 +18,14 @@ type Config struct {
 	BulletSpeedFactor float64    `json:"BulletSpeedFactor"` //子弹的速度
 	BulletColor       color.RGBA `json:"BulletColor"`       //子弹的颜色
 	MaxBulletNum      int        `json:"MaxBulletNum"`      //同时存在的最大子弹数
-	BulletInterval    int64      `json:"BulletInterval"`    //子弹发射间隔(时间戳)
+	BulletInterval    int64      `json:"BulletInterval"`    //子弹发射间隔(时间戳：毫秒)
+	AlienSpeedFactor  float64    `json:"AlienSpeedFactor"`  //外星人速度
+	AlienInterval     int64      `json:"AlienInterval"`     //外星人创建间隔（时间戳：毫秒）
+	TitleFontSize     int        `json:"TitleFontSize"`
+	FontSize          int        `json:"FontSize"`
+	SmallFontSize     int        `json:"SmallFontSize"`
+	FailNum           int        `json:"FailNum"`    //未消灭的外星人数，达到该数判断游戏失败
+	SuccessNum        int        `json:"SuccessNum"` //成功消灭的外星人数，达到该数判定游戏通关
 }
 
 func LoadConfig() *Config {

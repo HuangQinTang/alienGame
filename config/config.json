@@ -12,12 +12,19 @@
   "bulletWidth": 3,
   "bulletHeight": 3,
   "bulletSpeedFactor": 2,
-  "maxBulletNum": 10,
+  "maxBulletNum": 20,
   "bulletInterval": 50,
   "bulletColor": {
     "r": 80,
     "g": 80,
     "b": 80,
     "a": 255
-  }
+  },
+  "AlienSpeedFactor": 2,
+  "AlienInterval": 4000,
+  "TitleFontSize": 20,
+  "FontSize": 20,
+  "SmallFontSize": 20,
+  "FailNum": 10,
+  "SuccessNum": 25
 }

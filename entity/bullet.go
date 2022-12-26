@@ -9,8 +9,8 @@ import (
 // Bullet 子弹
 type Bullet struct {
 	image       *ebiten.Image
-	width       int
-	height      int
+	Width       int
+	Height      int
 	X           float64
 	Y           float64
 	SpeedFactor float64 //子弹速度
@@ -26,8 +26,8 @@ func NewBullet(cfg *config.Config, ship *Ship) *Bullet {
 
 	return &Bullet{
 		image:       img,
-		width:       cfg.BulletWidth,
-		height:      cfg.BulletHeight,
+		Width:       cfg.BulletWidth,
+		Height:      cfg.BulletHeight,
 		X:           ship.X + float64(ship.Width-cfg.BulletWidth)/2,
 		Y:           float64(cfg.ScreenHeight - ship.Height - cfg.BulletHeight),
 		SpeedFactor: cfg.BulletSpeedFactor,
@@ -41,7 +41,11 @@ func (bullet *Bullet) Draw(screen *ebiten.Image) {
 	screen.DrawImage(bullet.image, op)
 }
 
-// 判断子弹是否处于屏幕之外
+func (bullet *Bullet) GetInfo() (Width, Height int, X, Y float64) {
+	return bullet.Width, bullet.Height, bullet.X, bullet.Y
+}
+
+// OutOfScreen 判断子弹是否处于屏幕之外
 func (bullet *Bullet) OutOfScreen() bool {
-	return bullet.Y < -float64(bullet.height)
+	return bullet.Y < -float64(bullet.Height)
 }
